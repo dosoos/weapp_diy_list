@@ -16,9 +16,9 @@
 
 ## 画面截屏:
 <p align="left">
-      <img src="https://github.com/dosoos/weapp_diy_list/blob/main/images/IMG_5224.PNG?raw=true" width="33%">
-      <img src="https://github.com/dosoos/weapp_diy_list/blob/main/images/IMG_5225.PNG?raw=true" width="33%">
-      <img src="https://github.com/dosoos/weapp_diy_list/blob/main/images/IMG_5226.PNG?raw=true" width="33%">
+      <img src="https://github.com/dosoos/weapp_diy_list/blob/main/images/IMG_5224.PNG?raw=true" width="30%">
+      <img src="https://github.com/dosoos/weapp_diy_list/blob/main/images/IMG_5225.PNG?raw=true" width="30%">
+      <img src="https://github.com/dosoos/weapp_diy_list/blob/main/images/IMG_5226.PNG?raw=true" width="30%">
 </p>
 
 ## 如何使用:
