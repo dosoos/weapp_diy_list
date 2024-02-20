@@ -1,0 +1,53 @@
+<!--pages/likes/likes.wxml-->
+<scroll-view 
+  class="scroll-style" 
+  bindrefresherrefresh="handleRefresh" 
+  bindscrolltolower="handleLoadMore"
+  refresher-enabled="{{true}}" 
+  refresher-triggered="{{refreshing}}" 
+  scroll-y="{{true}}" >
+
+  <van-swipe-cell wx:for="{{diys}}" wx:key="_id" right-width="{{ 65 }}">
+
+    <van-cell-group inset style="margin-top: 10rpx; display: block;">
+      <!-- 资料行 -->
+      <van-cell center value="¥{{item.totalPrice}}" value-class="cell-value" link-type="navigateTo" url="../detail/detail?id={{item._id}}">
+        <!-- 头像 -->
+        <view slot="title" style="min-width: 300rpx">
+          <van-row>
+            <van-col span="8">
+              <van-image
+                round
+                fit="cover"
+                style="margin-top: 30rpx;"
+                width="65rpx"
+                height="65rpx"
+                style="margin-top: 3px; display: block;"
+                src="https://img.yzcdn.cn/vant/cat.jpeg" />
+            </van-col>
+            <van-col span="16">
+              <van-row style="height: 32rpx; display: block;">
+                <text style="font-weight: bold; font-size: 28rpx;">微信用户</text>
+              </van-row>
+              <van-row style="height: 20rpx; display: block;">
+                <text style="font-size: 20rpx;">{{item.fiendlyTime}}</text>
+              </van-row>
+            </van-col>
+          </van-row>
+
+        </view>
+
+      </van-cell>
+
+      <!-- 内容行 -->
+      <van-cell title="{{item.title}}" label="{{item.desc}}" link-type="navigateTo" url="../detail/detail?id={{item._id}}" />
+
+    </van-cell-group>
+
+    <view slot="right" data-id="{{item._id}}" catchtap="deleteLike" style="background-color: red; width: 128rpx; height: 250rpx;">
+      <van-icon name="delete" color="white" size="60rpx" style="margin-top: 80rpx; margin-left: 30rpx;" />
+    </view>
+
+  </van-swipe-cell>
+
+</scroll-view>

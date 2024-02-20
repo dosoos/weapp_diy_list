@@ -1,0 +1,55 @@
+<!-- Title Bar -->
+<view class="title-bar" style="padding-top: {{paddingTopNum}}px; padding-left: 30rpx;">
+  <image bind:tap="onBack" src="../../images/icons/back.png" style="width: 30rpx; height: 30rpx; padding: 20rpx;" />
+  <view class="title">DIY配置信息  </view>
+</view>
+
+<scroll-view type="list" 	show-scrollbar="{{false}}" scroll-y style="display: flex; flex-direction: column; flex: 1; width: 100%; overflow: auto;">
+<snapshot id="target">
+  <view class="container">
+
+    <!-- Content -->
+    <view class="content">
+      
+      <!-- description -->
+      <view class="description">
+        <view class="desc-title">{{title}}</view>
+        <view class="desc-subtitle">{{desc}}</view>
+      </view>
+      
+      <!-- wares -->
+      <view class="config-list">
+        <block wx:for="{{wares}}" wx:key="index">
+          <view class="config-item">
+            <text class="config-label">{{item.category}}: </text>
+            <text class="config-value">{{item.special}}</text>
+            <text class="config-count" style="float: right;">x{{item.count}}</text>
+            <text class="config-price" style="float: right;">¥{{item.price}}</text>
+          </view>
+          <!-- Divider -->
+          <view class="divider"></view>
+        </block>
+      </view>
+
+    </view>
+
+    <!-- Total Price -->
+    <view class="total-price">总价格: ¥{{totalPrice}}</view>
+
+    <!-- Footer -->
+    <view class="footer">
+      <image src="../../images/logo-text-mini.png" alt="Logo" class="logo" />
+      <image src="{{qrcodeImage}}" alt="QR Code" class="qr-code" />
+    </view>
+
+  </view>
+</snapshot>
+
+<view class="button-container">
+  <button class="button" bindtap="onCopy">复制一份</button>
+  <view style="width: 50rpx; height: 50rpx;"></view>
+  <button class="button" bindtap="onShare">保存分享</button>
+</view>
+
+<view style="width: 100%; height: 100rpx;"></view>
+</scroll-view>

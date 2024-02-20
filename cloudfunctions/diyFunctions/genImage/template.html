@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小狗DIY攒机</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+.container {
+    position: relative; /* 添加相对定位 */
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.config-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.config-item {
+    margin-bottom: 10px;
+}
+
+.config-label {
+    font-weight: bold;
+}
+
+.config-value {
+    margin-left: 10px;
+}
+
+.button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.logo {
+    position: absolute; /* 添加绝对定位 */
+    bottom: 10px;
+    left: 10px;
+    width: 80px;
+}
+
+.qr-code {
+    position: absolute; /* 添加绝对定位 */
+    bottom: 10px;
+    right: 10px;
+    width: 80px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="title">电脑DIY配置信息</div>
+    </div>
+    <ul class="config-list">
+        <li class="config-item">
+            <span class="config-label">CPU:</span>
+            <span class="config-value">I7 10700K</span>
+        </li>
+    </ul>
+    <img src="https://636c-cloud1-1gq9y7n198603bfa-1324314513.tcb.qcloud.la/logo-text.png?sign=8a30007e2b9ab2552c6375823116c928&t=1707745170" alt="Logo" class="logo"> <!-- 添加Logo图片 -->
+    <img src="{{qrcode}}" alt="QR Code" class="qr-code"> <!-- 添加二维码图片 -->
+</div>
+
+</body>
+</html>

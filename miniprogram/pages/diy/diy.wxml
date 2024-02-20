@@ -1,0 +1,118 @@
+<!--pages/diy/diy.wxml-->
+<view class="container">
+
+  <!-- primary -->
+  <van-cell-group inset wx:for="{{tempDatas}}" wx:key="index" style="display: block; margin-top: 10rpx; width: 100%;">
+
+    <image data-index="{{index}}" capture-bind:tap="handleDelete" class="delete-item" src="../../images/icons/delete.png" style="background-color: #F36259; border-bottom-left-radius: 10rpx;"></image>
+
+    <van-field
+      value="{{ item.category }}"
+      required
+      clearable
+      autosize
+      label="配件"
+      title-width="2.5em"
+      placeholder="请输入配件如: 显卡"
+      bind:change="onCategoryChange"
+      data-index="{{index}}"
+    />
+
+    <van-field
+      value="{{ item.special }}"
+      required
+      clearable
+      autosize
+      type="textarea"
+      label="型号"
+      title-width="2.5em"
+      placeholder="请输入型号如: RTX 4090"
+      bind:change="onSpecialChange"
+      data-index="{{index}}"
+    />
+
+    <van-row>
+
+      <van-col span="16">
+
+        <van-field
+          value="{{ item.price }}"
+          clearable
+          autosize
+          type="number"
+          label="价格"
+          title-width="2.5em"
+          placeholder="请输入价格"
+          border="{{ false }}"
+          bind:change="onPriceChange"
+          data-index="{{index}}"
+        />
+
+      </van-col>
+
+      <van-col span="8">
+
+        <van-stepper data-index="{{index}}" bind:change="onCountChange" value="{{item.count}}" integer min="1" max="1024" step="1" style="display: block; margin-top: 15rpx;" />
+
+      </van-col>
+
+    </van-row>
+
+    <!-- 顺序调整区域 -->
+    <van-row>
+      <van-col span="12">
+        <van-button bind:click="onMoveUp" data-index="{{index}}" hairline type="default">
+          <van-icon name="back-top" size="35rpx" />
+        </van-button>
+      </van-col>
+      <van-col span="12">
+        <van-button bind:click="onMoveDown" data-index="{{index}}" hairline type="default">
+          <van-icon name="back-top" size="35rpx" custom-class="van-icon-down" />
+        </van-button>
+      </van-col>
+    </van-row>
+  </van-cell-group>
+
+  <!-- primary -->
+  <van-button icon="add-o" type="primary" bind:click="onAdd" block style="margin-bottom: 100rpx; margin-top: 50rpx; width: 90%;">添加</van-button>
+
+  <van-submit-bar
+    price="{{ totalPrice }}"
+    safe-area-inset-bottom="{{ false }}"
+    label="总价值"
+    button-text="保存配置"
+    bind:submit="onSubmit" >
+
+    <van-button type="default" bind:click="dialogClearContent" size="small">重置内容</van-button>
+
+  </van-submit-bar>
+
+  <van-dialog
+    use-slot
+    title="配置资料"
+    show="{{ show }}"
+    show-cancel-button
+    bind:close="onClose"
+    bind:confirm="uploadDiy" >
+
+    <van-field
+      model:value="{{ diyTitle }}"
+      required
+      clearable
+      autosize
+      label="标题"
+      placeholder="请输入配置标题"
+    />
+
+    <van-field
+      model:value="{{ diyDesc }}"
+      clearable
+      autosize
+      type="textarea"
+      label="简介"
+      placeholder="请输入配置简介"
+    />
+
+  </van-dialog>
+
+</view>

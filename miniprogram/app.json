@@ -1,0 +1,53 @@
+{
+  "pages": [
+    "pages/explore/explore",
+    "pages/diy/diy",
+    "pages/me/me",
+    "pages/home/home",
+    "pages/web/index",
+    "pages/likes/likes",
+    "pages/myself/myself",
+    "pages/collects/collects",
+    "pages/detail/detail"
+  ],
+  "tabBar": {
+    "selectedColor": "#F36259",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      {
+        "text": "首页",
+        "pagePath": "pages/explore/explore",
+        "iconPath": "images/icons/home.png",
+        "selectedIconPath": "images/icons/home-selected.png"
+      },
+      {
+        "text": "攒机",
+        "pagePath": "pages/diy/diy",
+        "iconPath": "images/icons/diy.png",
+        "selectedIconPath": "images/icons/diy-selected.png"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/me/me",
+        "iconPath": "images/icons/user.png",
+        "selectedIconPath": "images/icons/user-selected.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "小狗DIY攒机",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "componentFramework": "glass-easel",
+  "rendererOptions": {
+    "skyline": {
+      "defaultDisplayBlock": true
+    }
+  }
+}

@@ -1,0 +1,157 @@
+.container {
+  max-width: 600px;
+  margin: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.content {
+  width: 100%;
+  padding: 0 20px;
+}
+
+.config-list {
+  padding: 0;
+  margin-top: 30rpx;
+}
+
+.config-item {
+  display: flex;
+  justify-content: space-between; /* Align items in a row with space between them */
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  margin-bottom: 5px;
+}
+
+.config-label {
+  font-weight: bold;
+  padding-right: 10px;
+  font-size: 30rpx;
+  display: inline-block;
+  width: auto;
+  white-space: nowrap;
+}
+
+.config-value {
+  padding-left: 10rpx; /* Reset margin */
+  font-weight: normal;
+  width: 90%;
+  color: #666;
+  font-size: 22rpx;
+  max-width: 300rpx;
+}
+
+.config-count {
+  color: gray;
+  font-size: 24rpx;
+  min-width: 50rpx;
+  font-weight: bold;
+  padding-left: 10rpx;
+}
+
+.config-price {
+  color: #F36259;
+  font-size: 24rpx;
+  min-width: 100rpx;
+  font-weight: bold;
+}
+
+.total-price {
+  width: 100%;
+  text-align: left;
+  font-weight: bold;
+  margin-top: 20rpx;
+  margin-left: 80rpx;
+  color: #F36259;
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  width: 60px;
+  height: 25px;
+  margin-top: 100rpx;
+}
+
+.qr-code {
+  width: 80px;
+  height: 80px;
+}
+
+.button-container {
+  display: flex;
+  margin-top: 100rpx;
+  padding: 0 50rpx;
+}
+
+.button {
+  padding: 5px;
+  text-align: center;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.title-bar {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.back-arrow {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}
+
+.title {
+  flex: 1;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.description {
+  text-align: center;
+}
+
+.desc-title {
+  text-align: center;
+}
+
+.desc-subtitle {
+  margin-top: 10rpx;
+  text-align: center;
+  font-weight: normal;
+  font-size: 25rpx;
+  color: gray;
+}
+
+/* Other styles remain the same */

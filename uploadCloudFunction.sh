@@ -1,0 +1,1 @@
+"/Applications/wechatwebdevtools.app/Contents/MacOS/cli" cloud functions deploy --e 你的云环境ID --n quickstartFunctions --r --project "/Users/lgks/Developer/miniprogram-smalldog-diy" --report_first --report

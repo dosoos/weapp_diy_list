@@ -1,0 +1,12 @@
+{
+  "renderer": "skyline",
+  "disableScroll": true,
+  "navigationStyle": "custom",
+  "usingComponents": {},
+  "rendererOptions": {
+    "skyline": {
+      "disableABTest": true,
+      "sdkVersionBegin": "3.0.1"
+    }
+  }
+}

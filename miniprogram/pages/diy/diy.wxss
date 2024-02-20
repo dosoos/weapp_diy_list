@@ -1,0 +1,21 @@
+/* pages/diy/diy.wxss */
+.container {
+  padding-bottom: 100rpx;
+}
+
+button{
+  width: 100%!important;
+}
+
+.delete-item {
+  position: absolute;
+  top: 5rpx;
+  right: 5rpx;
+  z-index: 10;
+  width: 45rpx;
+  height: 45rpx;
+}
+
+.van-icon-down {
+  transform: rotate(180deg);
+}

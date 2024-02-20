@@ -1,0 +1,40 @@
+<!--pages/me/me.wxml-->
+<view style="padding-top: 100rpx; padding-bottom: 100rpx; height: 100vh;">
+  <view class="userinfo">
+    <block>
+      <button style="border: none; background-color: #00000000;" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+        <image class="userinfo-avatar" src="{{avatarUrl}}"></image>
+      </button>
+      <text class="userinfo-nickname" bindtap="onNicknameClick">{{nickName}}</text>
+    </block>
+  </view>
+
+  <van-dialog
+    use-slot
+    title="设置昵称"
+    show="{{ showSettingNickname }}"
+    show-cancel-button
+    bind:confirm="onConfirmNickname"
+  >
+    <input type="nickname" class="weui-input" model:value="{{ settingNickname }}" bind placeholder="请输入昵称" style="    text-align: center;  margin: 50px;"/>
+  </van-dialog>
+
+  <van-cell-group inset style="margin-top: 100rpx; display: block;">
+    <van-cell bind:tap="goMyCollects" title="收藏列表" value="{{collect_count}}" />
+  </van-cell-group>
+
+  <van-cell-group inset style="margin-top: 15rpx; display: block;">
+    <van-cell bind:tap="goMyLikes" title="点赞列表" value="{{like_count}}" />
+  </van-cell-group>
+
+  <van-cell-group inset style="margin-top: 15rpx; display: block;">
+    <van-cell bind:tap="goMySelfs" title="我的配置单" value="{{myself_count}}" />
+  </van-cell-group>
+
+  <view style="text-align: center; color: gray; display: block; position: absolute; bottom: 100rpx; width: 100%;">
+    <text style="width: 100%; display: block;">有疑问? 联系客服</text>
+    <br/>
+    <text style="width: 100%; display: block; color: #1a0dab;" bind:tap="copyWechat">微信 dosoos</text>
+  </view>
+
+</view>

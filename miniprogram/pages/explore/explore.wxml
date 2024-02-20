@@ -1,0 +1,90 @@
+<scroll-view 
+  class="scroll-style" 
+  bindrefresherrefresh="handleRefresh" 
+  bindscrolltolower="handleLoadMore"
+  refresher-enabled="{{true}}" 
+  refresher-triggered="{{refreshing}}" 
+  scroll-y="{{true}}" >
+
+  <view class="container" style="padding-bottom: 30rpx;">
+
+    <van-search
+      style="width: 100%;"
+      value="{{ searchKeywords }}"
+      input-align="center"
+      placeholder="请输入搜索关键词"
+      bind:search="onSearchDiy" />
+
+    <swiper 
+      indicator-dots="true" 
+      indicator-type="wormThin"
+      autoplay="true" 
+      interval="3000" 
+      duration="500"
+      style="width: 100%; height: 300rpx;">
+      <block wx:for="{{swippers}}" wx:key="img">
+        <swiper-item data-index="{{index}}" bind:tap="onBannerTap">
+          <image style="width: 100%; height: 400rpx; " mode="aspectFill" src="{{item.image}}"></image>
+        </swiper-item>
+      </block>
+    </swiper>
+
+    <van-cell-group
+      wx:for="{{diys}}"
+      wx:key="_id" 
+      inset 
+      style="margin-top: 15rpx; display: block; width: 100%;">
+      <!-- 资料行 -->
+      <van-cell center value="¥{{item.totalPrice}}" value-class="cell-value" link-type="navigateTo" url="../detail/detail?id={{item._id}}">
+        <!-- 头像 -->
+        <view slot="title" style="min-width: 300rpx">
+          <van-row>
+            <van-col span="8">
+              <van-image
+                round
+                fit="cover"
+                style="margin-top: 30rpx;"
+                width="65rpx"
+                height="65rpx"
+                style="margin-top: 3px; display: block;"
+                src="{{item.avatar}}" />
+            </van-col>
+            <van-col span="16">
+              <van-row style="height: 32rpx; display: block;">
+                <text style="font-weight: bold; font-size: 28rpx;">{{item.nickname}}</text>
+              </van-row>
+              <van-row style="height: 20rpx; display: block;">
+                <text style="font-size: 20rpx;">{{item.fiendlyTime}}</text>
+              </van-row>
+            </van-col>
+          </van-row>
+
+        </view>
+
+      </van-cell>
+
+      <!-- 内容行 -->
+      <van-cell title="{{item.title}}" label="{{item.desc}}" link-type="navigateTo" url="../detail/detail?id={{item._id}}" />
+
+      <!-- 点赞区域 -->
+      <van-cell use-label-slot="true">
+        <view slot="label">
+          <view class="avter-share-container">
+            <view class="like-container" data-id="{{item._id}}" catchtap="diyLike">
+                <van-icon name="like-o" color="#666" size="26rpx" />
+                <view class="number">{{item.likes}} 喜欢</view>
+            </view>
+
+            <view class="like-container" data-id="{{item._id}}" catchtap="diyCollect">
+              <van-icon name="star-o" color="#666" size="26rpx" />
+                <view class="number">{{item.collects}} 收藏</view>
+            </view>
+          </view>
+        </view>
+      </van-cell>
+
+    </van-cell-group>
+
+  </view>
+
+</scroll-view>
