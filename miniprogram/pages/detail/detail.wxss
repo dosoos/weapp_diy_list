@@ -44,11 +44,11 @@
 
 .config-label {
   font-weight: bold;
-  padding-right: 10px;
   font-size: 30rpx;
   display: inline-block;
-  width: auto;
-  white-space: nowrap;
+  max-width: 200rpx;
+  min-width: 150rpx;
+  word-wrap:normal;
 }
 
 .config-value {
@@ -57,15 +57,17 @@
   width: 90%;
   color: #666;
   font-size: 22rpx;
+  display: block;
   max-width: 300rpx;
 }
 
 .config-count {
   color: gray;
   font-size: 24rpx;
-  min-width: 50rpx;
+  min-width: 60rpx;
   font-weight: bold;
-  padding-left: 10rpx;
+  padding-right: 10rpx;
+  text-align: right;
 }
 
 .config-price {
@@ -73,6 +75,8 @@
   font-size: 24rpx;
   min-width: 100rpx;
   font-weight: bold;
+  padding-left: 15rpx;
+  text-align: left;
 }
 
 .total-price {
