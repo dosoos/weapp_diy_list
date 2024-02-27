@@ -107,9 +107,23 @@
 }
 
 .button-container {
-  display: flex;
   margin-top: 100rpx;
   padding: 0 50rpx;
+}
+
+.switch-group {
+  width: 100%;
+  color: gray;
+  padding-bottom: 50rpx;
+}
+
+.switch-group-item {
+  display: inline-block;
+  float: right;
+}
+
+.button-group {
+  display: flex;
 }
 
 .button {

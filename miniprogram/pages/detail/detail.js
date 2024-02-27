@@ -15,7 +15,14 @@ Page({
     desc: '',
     wares: [],
     totalPrice: 0,
+    showQrcode: true,
     paddingTopNum: wx.getSystemInfoSync().statusBarHeight+7
+  },
+
+  switchShowQrcode(e) {
+    this.setData({
+      showQrcode: e.detail.value
+    })
   },
 
   onBack(e) {

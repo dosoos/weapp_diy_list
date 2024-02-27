@@ -39,16 +39,24 @@
     <!-- Footer -->
     <view class="footer">
       <image src="../../images/logo-text-mini.png" alt="Logo" class="logo" />
-      <image src="{{qrcodeImage}}" alt="QR Code" class="qr-code" />
+      <image wx:if="{{showQrcode}}" src="{{qrcodeImage}}" alt="QR Code" class="qr-code" />
     </view>
 
   </view>
 </snapshot>
 
+
+
 <view class="button-container">
-  <button class="button" bindtap="onCopy">复制一份</button>
-  <view style="width: 50rpx; height: 50rpx;"></view>
-  <button class="button" bindtap="onShare">保存分享</button>
+  <view class="switch-group">
+    <text class="switch-group-item" style="padding-top: 10rpx; padding-right: 20rpx;">显示分享二维码</text>
+    <switch class="switch-group-item" type="switch" checked="{{showQrcode}}" bindchange="switchShowQrcode"/>
+  </view>
+  <view class="button-group">
+    <button class="button" bindtap="onCopy">复制一份</button>
+    <view style="width: 50rpx; height: 50rpx;"></view>
+    <button class="button" bindtap="onShare">保存分享</button>
+  </view>
 </view>
 
 <view style="width: 100%; height: 100rpx;"></view>
