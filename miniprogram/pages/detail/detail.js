@@ -108,12 +108,18 @@ Page({
 
             wx.saveImageToPhotosAlbum({
               filePath: f,
-              complete(res) {
+              success(res) {
                 console.log("saveImageToPhotosAlbum:", res)
+                wx.showToast({
+                  title: '保存成功'
+                })
+              },
+              fail(err) {
+                wx.showToast({
+                  icon: 'error',
+                  title: '保存失败!' + err.errMsg,
+                })
               }
-            })
-            wx.showToast({
-              title: '保存成功'
             })
           },
           fail(res) {
