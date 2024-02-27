@@ -137,6 +137,24 @@ Page({
     })
   },
 
+  onCopyItem(e) {
+    const index = e.currentTarget.dataset.index
+    const ware = this.data.wares[index]
+    console.log(ware)
+    wx.setClipboardData({
+      data: ware.special,
+      success (res) {
+        wx.showToast({
+          title: '复制成功!',
+          duration: 1000,
+        })
+      },
+      fail(err) {
+        console.log(err)
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

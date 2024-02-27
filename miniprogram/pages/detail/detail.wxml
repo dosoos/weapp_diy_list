@@ -20,7 +20,7 @@
       <!-- wares -->
       <view class="config-list">
         <block wx:for="{{wares}}" wx:key="index">
-          <view class="config-item">
+          <view class="config-item" data-index="{{index}}" bind:tap="onCopyItem">
             <text class="config-label">{{item.category}}:</text>
             <text class="config-value">{{item.special}}</text>
             <text class="config-count" style="float: right;">x{{item.count}}</text>
