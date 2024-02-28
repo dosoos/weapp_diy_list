@@ -101,7 +101,7 @@ Page({
             console.log('截屏成功', res)
             wx.hideLoading()
 
-            const f = `${wx.env.USER_DATA_PATH}/${_this.data.title}_${_this.data.diyid}.png`
+            const f = `${wx.env.USER_DATA_PATH}/${_this.data.title}_${_this.data.diyid}_${parseInt(Math.random()*1000000)}.png`
 
             const fs = wx.getFileSystemManager();
             fs.writeFileSync(f, res.data, 'binary')
