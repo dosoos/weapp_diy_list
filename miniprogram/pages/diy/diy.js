@@ -273,6 +273,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady() {
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow() {
     if (app.globalData.copyDiyId != null) {
       console.log('修改配置')
       this.retriveDiy(app.globalData.copyDiyId)
@@ -280,20 +292,6 @@ Page({
     } else {
       this.clearContent(null)
     }
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
   },
 
   /**
