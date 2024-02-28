@@ -14,8 +14,10 @@ exports.main = async (event, context) => {
   try {
     if (event.data.hasOwnProperty('_id')) {
       // 更新配置单
+      const diy_id = event.data._id
+      delete event.data['_id']
       await db.collection('diy').where({
-        _id: event.data._id
+        _id: diy_id
       }).update({
         data: {
           updateTime: new Date(),
@@ -24,7 +26,7 @@ exports.main = async (event, context) => {
       });
       return {
         success: true,
-        _id: event.data._id
+        _id: diy_id
       };
     } else {
       // 添加配置单
@@ -32,6 +34,8 @@ exports.main = async (event, context) => {
         data: {
           user: wxContext.OPENID,
           updateTime: new Date(),
+          createTime: new Date(),
+          share: true,
           ...event.data
         }
       });
