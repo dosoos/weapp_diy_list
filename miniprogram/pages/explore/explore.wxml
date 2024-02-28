@@ -54,7 +54,7 @@
                 <text style="font-weight: bold; font-size: 28rpx;">{{item.nickname}}</text>
               </van-row>
               <van-row style="height: 20rpx; display: block;">
-                <text style="font-size: 20rpx;">{{item.fiendlyTime}}</text>
+                <text style="font-size: 20rpx; display: block; min-width: 110px;">{{item.fiendlyTime}}</text>
               </van-row>
             </van-col>
           </van-row>
