@@ -63,10 +63,44 @@ Page({
 
   async onShare(e) {
     const _this = this
+
     console.log(e)
+    const settings = await wx.getSetting()
+    if (settings.authSetting['scope.writePhotosAlbum']) { // 检测相册写入权限
+      this.taskScreenshot(e)
+
+    } else { // 未授权的话发起授权
+      wx.authorize({
+        scope: 'scope.writePhotosAlbum',
+        success: () => { //用户允许授权，保存到相册
+          _this.taskScreenshot(e)
+        },
+        fail: () => {
+          wx.showModal({    // 直接调wx.openSetting在真机调试正常，但在体验版无法调起，因为官方文档做了限制，请看下面什么
+            content: '请允许写入相册授权',
+            success: function (res2) {
+              if (res2.confirm) {
+                wx.openSetting({
+                  success: () => {
+                    _this.onShare(e)
+                  }
+                })
+              } 
+            }
+          })
+        }
+      })
+    }
+
+  },
+
+  async taskScreenshot(e) {
+    const _this = this
+
     wx.showLoading({
       title: '生成中...',
     })
+    // 检测分享二维码
     if (this.data.qrcodeImage == undefined || this.data.qrcodeImage.length <= 0) {
       // 没有二维码, 生成配置二维码
       console.log('分享二维码为空, 重新生成')
@@ -86,6 +120,7 @@ Page({
       // 等待两秒图片加载完成
       await new Promise((resolve) => setTimeout(resolve, 2000));
     }
+
     console.log('开始生成图片')
     // 小程序 二维码
     this.createSelectorQuery().select("#target")
@@ -133,7 +168,6 @@ Page({
           }
         })
       })
-
   },
 
   onCopy(e) {
