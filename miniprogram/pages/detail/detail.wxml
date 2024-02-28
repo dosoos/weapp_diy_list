@@ -38,8 +38,11 @@
 
     <!-- Footer -->
     <view class="footer">
-      <image src="../../images/logo-text-mini.png" alt="Logo" class="logo" />
-      <image wx:if="{{showQrcode}}" src="{{qrcodeImage}}" alt="QR Code" class="qr-code" />
+      <view class="logo-container">
+        <image class="logo" src="../../images/logo-mini.png" alt="Logo" />
+        <text class="logo-text">小狗diy小程序</text>
+      </view>
+      <image class="qr-code" wx:if="{{showQrcode}}" src="{{qrcodeImage}}" alt="QR Code" />
     </view>
 
   </view>

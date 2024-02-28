@@ -95,10 +95,22 @@
   align-items: center;
 }
 
+.logo-container {
+  margin-top: 60rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .logo {
-  width: 60px;
-  height: 25px;
-  margin-top: 100rpx;
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.logo-text {
+  line-height: 35rpx;
+  font-size: 24rpx;
+  color: #666;
 }
 
 .qr-code {
