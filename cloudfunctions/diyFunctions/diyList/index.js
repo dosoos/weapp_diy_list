@@ -35,6 +35,7 @@ exports.main = async (event, context) => {
         options: 'i',
         //大小写不区分
       }),
+      share: true,
     }).lookup({
       from: 'profile',
       localField: 'user',
@@ -43,13 +44,14 @@ exports.main = async (event, context) => {
     }).end();
   }
   // 默认攒机器列表
-  return await db.collection('diy').aggregate()
-  .lookup({
+  return await db.collection('diy').aggregate().match({
+    share: true,
+  }).lookup({
     from: 'profile',
     localField: 'user',
     foreignField: 'user',
     as: 'profiles',
   }).sort({
-    updateTime: -1
+    createTime: -1
   }).end();
 };
