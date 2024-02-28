@@ -2,6 +2,7 @@ const diyCreate = require('./diy/index');
 const diyDelete = require('./diyDelete/index');
 const diyList = require('./diyList/index');
 const diyDetail = require('./diyDetail/index');
+const diyDetailMe = require('./diyDetailMe/index');
 const diyCollect = require('./collect/index');
 const diyCollectList = require('./collectList/index');
 const diyCollectDelete = require('./collectDelete/index');
@@ -25,6 +26,8 @@ exports.main = async (event, context) => {
       return await diyList.main(event, context);
     case 'diyDetail':
       return await diyDetail.main(event, context);
+    case 'diyDetailMe':
+      return await diyDetailMe.main(event, context);
     case 'diyCollect':
       return await diyCollect.main(event, context);
     case 'diyCollectList':
