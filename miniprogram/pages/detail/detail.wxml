@@ -49,7 +49,7 @@
 
 <view class="button-container">
   <view class="switch-group">
-    <text class="switch-group-item" style="padding: 10rpx 20rpx;  text-align: center;">显示分享二维码</text>
+    <text class="switch-group-item">显示分享二维码</text>
     <switch class="switch-group-item" type="switch" checked="{{showQrcode}}" bindchange="switchShowQrcode"/>
   </view>
   <view class="button-group">
