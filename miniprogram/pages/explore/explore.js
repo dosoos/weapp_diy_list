@@ -90,12 +90,12 @@ Page({
       const handleDatas = resp.result.list.map(function(x) {
         x['fiendlyTime'] = x.updateTime.split('.')[0].replace('T', ' ')
         if (x.profiles.length > 0) {
-          x['avatar'] = x.profiles[0].avatar == '' ? this.data.avatarUrl : x.profiles[0].avatar
+          x['avatar'] = x.profiles[0].avatar == '' || x.profiles[0].avatar == undefined ? this.data.avatarUrl : x.profiles[0].avatar
         } else {
           x['avatar'] = '/images/logo-mini.png'
         }
         if (x.profiles.length > 0) {
-          x['nickname'] = x.profiles[0].nickname == '' ? '匿名用户' : x.profiles[0].nickname
+          x['nickname'] = x.profiles[0].nickname == '' || x.profiles[0].nickname == undefined ? '匿名用户' : x.profiles[0].nickname
         } else {
           x['nickname'] = '匿名用户'
         }
