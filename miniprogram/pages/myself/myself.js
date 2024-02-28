@@ -16,6 +16,29 @@ Page({
     });
   },
 
+  switchShare(e) {
+    const index = e.currentTarget.dataset.index
+    const diy = this.data.diys[index]
+    this.setData({
+      ['diys[' + index + '].share']: e.detail.value
+    })
+    wx.cloud.callFunction({
+      name: 'diyFunctions',
+      config: {
+        env: this.data.envId
+      },
+      data: {
+        type: 'diyCreate',
+        data: {
+          _id: diy._id,
+          share: e.detail.value
+        }
+      }
+    }).then((resp) => {
+      console.log('分享返回', resp)
+    });
+  },
+
   getMySelf() {
     wx.cloud.callFunction({
       name: 'diyFunctions',

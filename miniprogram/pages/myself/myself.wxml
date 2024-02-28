@@ -42,6 +42,18 @@
       <!-- 内容行 -->
       <van-cell title="{{item.title}}" label="{{item.desc}}" link-type="navigateTo" url="../detail/detail?id={{item._id}}" />
 
+      <!-- 点赞区域 -->
+      <van-cell use-label-slot="true">
+        <view slot="label">
+          <view class="avter-share-container">
+            <view class="like-container" data-id="{{item._id}}" catchtap="diyLike">
+              <text class="switch-group-item" style="margin-right: 20rpx;">分享至首页</text>
+              <switch class="switch-group-item" data-index="{{index}}" type="switch" checked="{{item.share}}" bindchange="switchShare"/>
+            </view>
+          </view>
+        </view>
+      </van-cell>
+
     </van-cell-group>
 
     <view slot="right" data-id="{{item._id}}" catchtap="handleDelete" style="background-color: red; width: 128rpx; height: 250rpx;">
