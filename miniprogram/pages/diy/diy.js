@@ -222,6 +222,8 @@ Page({
       success (res) {
         if (res.confirm) {
           console.log('用户点击确定')
+          app.globalData.copyDiyId = null
+          app.globalData.diyType = null
           _this.clearContent()
         } else if (res.cancel) {
           console.log('用户点击取消')
@@ -231,7 +233,6 @@ Page({
   },
 
   clearContent(e) {
-    app.globalData.copyDiyId = null
     this.setData({ 
       tempDatas: []
     });
@@ -273,6 +274,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    this.clearContent(null)
   },
 
   /**
@@ -288,9 +290,7 @@ Page({
     if (app.globalData.copyDiyId != null) {
       console.log('修改配置')
       this.retriveDiy(app.globalData.copyDiyId)
-      app.globalData.copyDiyId == null
-    } else {
-      this.clearContent(null)
+      app.globalData.copyDiyId = null
     }
   },
 
