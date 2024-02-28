@@ -11,7 +11,7 @@ Page({
         url: ''
       },
     ],
-    avatarUrl: '../../images/logo-mini.png',
+    avatarUrl: '/images/logo-mini.png',
     indicatorDots: true,
     vertical: false,
     autoplay: false,
@@ -92,7 +92,7 @@ Page({
         if (x.profiles.length > 0) {
           x['avatar'] = x.profiles[0].avatar == '' ? this.data.avatarUrl : x.profiles[0].avatar
         } else {
-          x['avatar'] = '../../images/logo-mini.png'
+          x['avatar'] = '/images/logo-mini.png'
         }
         if (x.profiles.length > 0) {
           x['nickname'] = x.profiles[0].nickname == '' ? '匿名用户' : x.profiles[0].nickname
