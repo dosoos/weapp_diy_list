@@ -109,12 +109,13 @@ Page({
             wx.saveImageToPhotosAlbum({
               filePath: f,
               success(res) {
-                console.log("saveImageToPhotosAlbum:", res)
+                console.log("add album success:", res)
                 wx.showToast({
                   title: '保存成功'
                 })
               },
               fail(err) {
+                console.log("add album fail:", err)
                 wx.showToast({
                   icon: 'error',
                   title: '保存失败!' + err.errMsg,
@@ -123,7 +124,7 @@ Page({
             })
           },
           fail(res) {
-            console.log('截屏失败', res)
+            console.log('图片保存失败!', res)
             wx.hideLoading()
             wx.showToast({
               title: '图片保存失败!',
