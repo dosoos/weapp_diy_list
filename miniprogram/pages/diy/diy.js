@@ -26,7 +26,8 @@ Page({
     // 显示保存对话框
     show: false,
     diyTitle: '',
-    diyDesc: ''
+    diyDesc: '',
+    detail: null,
   },
 
   computed: {
@@ -111,6 +112,10 @@ Page({
     if (this.data.tempDatas.length > 0) {
       totalPrice = this.data.tempDatas.reduce((sum, { price, count }) => sum + price * count, 0)
     }
+    var copyOrEdit = {}
+    if (app.globalData.diyType == 'edit') {
+      copyOrEdit['_id'] = this.data.detail._id
+    }
     wx.cloud.callFunction({
       name: 'diyFunctions',
       config: {
@@ -124,7 +129,8 @@ Page({
           totalPrice: totalPrice,
           wares: [
             ...this.data.tempDatas
-          ]
+          ],
+          ...copyOrEdit
         }
       }
     }).then((resp) => {
@@ -225,6 +231,7 @@ Page({
   },
 
   clearContent(e) {
+    app.globalData.copyDiyId = null
     this.setData({ 
       tempDatas: []
     });
@@ -257,6 +264,7 @@ Page({
         diyTitle: resp.result.data.title,
         diyDesc: resp.result.data.desc,
         tempDatas: resp.result.data.wares,
+        detail: resp.result.data
       })
     });
   },
