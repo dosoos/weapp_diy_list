@@ -23,7 +23,7 @@ exports.main = async (event, context) => {
         foreignField: 'user',
         as: 'profiles',
       }).sort({
-        updateTime: -1
+        createTime: -1
       }).end();
   }
   if (event.hasOwnProperty('search')) {
