@@ -80,7 +80,7 @@ Page({
           console.log("获取资料返回", resp)
           that.setData({
             avatarUrl: resp.result.data.avatar == '' ? this.data.avatarUrl : resp.result.data.avatar,
-            nickName: resp.result.data.nickname
+            nickName: resp.result.data.nickname == '' ? '微信用户' : resp.result.data.nickname,
           })
         });
       }
@@ -110,7 +110,7 @@ Page({
       console.log("设置资料返回", resp)
       that.setData({
         avatarUrl: resp.result.data.avatar == '' ? this.data.avatarUrl : resp.result.data.avatar,
-        nickName: resp.result.data.nickname
+        nickName: resp.result.data.nickname == '' ? '微信用户' : resp.result.data.nickname,
       })
     });
   },
@@ -132,7 +132,7 @@ Page({
         like_count: resp.result.data.like_count.total,
         myself_count: resp.result.data.myself_count.total,
         avatarUrl: resp.result.data.avatar == '' ? this.data.avatarUrl : resp.result.data.avatar,
-        nickName: resp.result.data.nickname
+        nickName: resp.result.data.nickname == '' ? '微信用户' : resp.result.data.nickname,
       })
     });
   },
