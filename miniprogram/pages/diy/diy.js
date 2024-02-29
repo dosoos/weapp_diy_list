@@ -96,6 +96,13 @@ Page({
   },
 
   uploadDiy() {
+    if (this.data.diyTitle.length <= 0) {
+      wx.showToast({
+        icon: 'error',
+        title: '请输入配置单名称',
+      })
+      return
+    }
     wx.showLoading({
       title: '保存中...',
     })
