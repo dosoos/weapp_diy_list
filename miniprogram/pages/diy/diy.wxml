@@ -7,6 +7,7 @@
       clearable
       model:value="{{ diyTitle }}"
       label="标题"
+      title-width="4em"
       placeholder="请输入配置标题"
       border="{{ true }}"
     />
@@ -16,6 +17,7 @@
       autosize
       model:value="{{ diyDesc }}"
       label="简介"
+      title-width="4em"
       type="textarea"
       placeholder="请输入配置简介"
       border="{{ false }}"
@@ -102,7 +104,7 @@
     price="{{ totalPrice }}"
     safe-area-inset-bottom="{{ false }}"
     label="总价值"
-    button-text="保存配置"
+    button-text="{{ saveButtonText }}"
     bind:submit="uploadDiy" >
 
     <van-button type="default" bind:click="dialogClearContent" size="small">重置内容</van-button>

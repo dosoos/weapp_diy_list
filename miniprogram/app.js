@@ -1,7 +1,8 @@
 // app.js
 App({
   globalData: {
-    copyDiyId: null
+    copyDiyId: null,
+    diyType: null
   },
 
   onLaunch: function () {

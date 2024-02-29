@@ -26,11 +26,11 @@ Page({
     diyTitle: '',
     diyDesc: '',
     detail: null,
+    saveButtonText: '保存配置'
   },
 
   computed: {
     totalPrice(data) {
-      console.log(data.tempDatas.length)
       if (data.tempDatas.length <= 0) {
         return 0
       }
@@ -234,7 +234,8 @@ Page({
     this.setData({ 
       tempDatas: [],
       diyTitle: '我的diy_' + parseInt(Math.random()*10000),
-      diyDesc: ""
+      diyDesc: "",
+      saveButtonText: '保存配置'
     });
     this.addWare('CPU', '')
     this.addWare('内存', '')
@@ -291,6 +292,11 @@ Page({
       console.log('修改配置')
       this.retriveDiy(app.globalData.copyDiyId)
       app.globalData.copyDiyId = null
+      if (app.globalData.diyType == 'edit') {
+        this.setData({
+          saveButtonText: '保存修改'
+        })
+      }
     }
   },
 
