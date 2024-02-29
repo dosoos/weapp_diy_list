@@ -23,8 +23,6 @@ Page({
         count: 1
       }
     ],
-    // 显示保存对话框
-    show: false,
     diyTitle: '',
     diyDesc: '',
     detail: null,
@@ -89,13 +87,6 @@ Page({
     this.setData({ 
       tempDatas: array0
     });
-  },
-
-  onSubmit(e) {
-    console.log(e)
-    this.setData({
-      show: true
-    })
   },
 
   onClose(e) {
@@ -234,7 +225,9 @@ Page({
 
   clearContent(e) {
     this.setData({ 
-      tempDatas: []
+      tempDatas: [],
+      diyTitle: '我的diy_' + parseInt(Math.random()*10000),
+      diyDesc: ""
     });
     this.addWare('CPU', '')
     this.addWare('内存', '')

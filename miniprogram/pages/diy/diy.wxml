@@ -1,6 +1,28 @@
 <!--pages/diy/diy.wxml-->
 <view class="container">
 
+  <van-cell-group inset style="width: 100%; margin-top: 50rpx; margin-bottom: 20rpx;" >
+    <van-field
+      required
+      clearable
+      model:value="{{ diyTitle }}"
+      label="标题"
+      placeholder="请输入配置标题"
+      border="{{ true }}"
+    />
+
+    <van-field
+      clearable
+      autosize
+      model:value="{{ diyDesc }}"
+      label="简介"
+      type="textarea"
+      placeholder="请输入配置简介"
+      border="{{ false }}"
+    />
+    
+  </van-cell-group>
+
   <!-- primary -->
   <van-cell-group inset wx:for="{{tempDatas}}" wx:key="index" style="display: block; margin-top: 10rpx; width: 100%;">
 
@@ -81,38 +103,10 @@
     safe-area-inset-bottom="{{ false }}"
     label="总价值"
     button-text="保存配置"
-    bind:submit="onSubmit" >
+    bind:submit="uploadDiy" >
 
     <van-button type="default" bind:click="dialogClearContent" size="small">重置内容</van-button>
 
   </van-submit-bar>
-
-  <van-dialog
-    use-slot
-    title="配置资料"
-    show="{{ show }}"
-    show-cancel-button
-    bind:close="onClose"
-    bind:confirm="uploadDiy" >
-
-    <van-field
-      model:value="{{ diyTitle }}"
-      required
-      clearable
-      autosize
-      label="标题"
-      placeholder="请输入配置标题"
-    />
-
-    <van-field
-      model:value="{{ diyDesc }}"
-      clearable
-      autosize
-      type="textarea"
-      label="简介"
-      placeholder="请输入配置简介"
-    />
-
-  </van-dialog>
 
 </view>
