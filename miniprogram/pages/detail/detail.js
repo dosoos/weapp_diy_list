@@ -16,6 +16,7 @@ Page({
     desc: '',
     wares: [],
     totalPrice: 0,
+    totalPriceText: '0',
     showQrcode: true,
     paddingTopNum: wx.getSystemInfoSync().statusBarHeight+7
   },
@@ -66,6 +67,7 @@ Page({
         desc: resp.result.data.desc,
         wares: resp.result.data.wares,
         totalPrice: resp.result.data.totalPrice,
+        totalPriceText: resp.result.data.totalPrice.toLocaleString(),
         qrcodeImage: resp.result.data.qrImage,
         detail: resp.result.data
       })

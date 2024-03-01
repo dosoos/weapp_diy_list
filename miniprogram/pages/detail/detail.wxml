@@ -34,7 +34,7 @@
     </view>
 
     <!-- Total Price -->
-    <view class="total-price">总价格: ¥ {{totalPrice.toLocaleString()}}</view>
+    <view class="total-price">总价格: ¥ {{totalPriceText}}</view>
 
     <!-- Footer -->
     <view class="footer">
