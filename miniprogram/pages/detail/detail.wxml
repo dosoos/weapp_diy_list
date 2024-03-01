@@ -60,6 +60,7 @@
     <view style="width: 50rpx; height: 50rpx;"></view>
     <button class="button" bindtap="onShare">保存分享</button>
   </view>
+  <button wx:if="{{detail.owner}}" bind:tap="onReEdit" style="margin-top: 50rpx;" size="mini">重新编辑</button>
 </view>
 
 <view style="width: 100%; height: 100rpx;"></view>

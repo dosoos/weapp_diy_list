@@ -8,7 +8,6 @@
     "van-submit-bar": "@vant/weapp/submit-bar/index",
     "van-icon": "@vant/weapp/icon/index",
     "van-stepper": "@vant/weapp/stepper/index",
-    "van-button": "@vant/weapp/button/index",
-    "van-dialog": "@vant/weapp/dialog/index"
+    "van-button": "@vant/weapp/button/index"
   }
 }

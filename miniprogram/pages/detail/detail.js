@@ -10,6 +10,7 @@ Page({
     logoImage: 'https://636c-cloud1-1gq9y7n198603bfa-1324314513.tcb.qcloud.la/logo-text-mini.png?sign=376f8ae8b98683621c890b502b3e1c90&t=1707836091',
     shareImage: '',
     qrcodeImage: '',
+    detail: null,
     diyid: 0,
     title: '',
     desc: '',
@@ -39,6 +40,15 @@ Page({
     }
   },
 
+  onReEdit(e) {
+    console.log(e)
+    app.globalData.copyDiyId = this.data.diyid
+    app.globalData.diyType = 'edit'
+    wx.switchTab({
+      url: '../diy/diy',
+    })
+  },
+
   retriveDiy(id) {
     wx.cloud.callFunction({
       name: 'diyFunctions',
@@ -46,7 +56,7 @@ Page({
         env: this.data.envId
       },
       data: {
-        type: 'diyDetail',
+        type: 'diyDetailMe',
         id: id
       }
     }).then((resp) => {
@@ -56,7 +66,8 @@ Page({
         desc: resp.result.data.desc,
         wares: resp.result.data.wares,
         totalPrice: resp.result.data.totalPrice,
-        qrcodeImage: resp.result.data.qrImage
+        qrcodeImage: resp.result.data.qrImage,
+        detail: resp.result.data
       })
     });
   },
@@ -173,6 +184,7 @@ Page({
   onCopy(e) {
     console.log(e)
     app.globalData.copyDiyId = this.data.diyid
+    app.globalData.diyType = 'copy'
     wx.switchTab({
       url: '../diy/diy',
     })

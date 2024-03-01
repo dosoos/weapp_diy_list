@@ -23,15 +23,14 @@ Page({
         count: 1
       }
     ],
-    // 显示保存对话框
-    show: false,
     diyTitle: '',
-    diyDesc: ''
+    diyDesc: '',
+    detail: null,
+    saveButtonText: '保存配置'
   },
 
   computed: {
     totalPrice(data) {
-      console.log(data.tempDatas.length)
       if (data.tempDatas.length <= 0) {
         return 0
       }
@@ -90,13 +89,6 @@ Page({
     });
   },
 
-  onSubmit(e) {
-    console.log(e)
-    this.setData({
-      show: true
-    })
-  },
-
   onClose(e) {
     this.setData({
       show: false
@@ -104,12 +96,23 @@ Page({
   },
 
   uploadDiy() {
+    if (this.data.diyTitle.length <= 0) {
+      wx.showToast({
+        icon: 'error',
+        title: '请输入配置单名称',
+      })
+      return
+    }
     wx.showLoading({
       title: '保存中...',
     })
     var totalPrice = 0
     if (this.data.tempDatas.length > 0) {
       totalPrice = this.data.tempDatas.reduce((sum, { price, count }) => sum + price * count, 0)
+    }
+    var copyOrEdit = {}
+    if (app.globalData.diyType == 'edit') {
+      copyOrEdit['_id'] = this.data.detail._id
     }
     wx.cloud.callFunction({
       name: 'diyFunctions',
@@ -124,7 +127,8 @@ Page({
           totalPrice: totalPrice,
           wares: [
             ...this.data.tempDatas
-          ]
+          ],
+          ...copyOrEdit
         }
       }
     }).then((resp) => {
@@ -216,6 +220,8 @@ Page({
       success (res) {
         if (res.confirm) {
           console.log('用户点击确定')
+          app.globalData.copyDiyId = null
+          app.globalData.diyType = null
           _this.clearContent()
         } else if (res.cancel) {
           console.log('用户点击取消')
@@ -226,7 +232,10 @@ Page({
 
   clearContent(e) {
     this.setData({ 
-      tempDatas: []
+      tempDatas: [],
+      diyTitle: '我的diy_' + parseInt(Math.random()*10000),
+      diyDesc: "",
+      saveButtonText: '保存配置'
     });
     this.addWare('CPU', '')
     this.addWare('内存', '')
@@ -257,6 +266,7 @@ Page({
         diyTitle: resp.result.data.title,
         diyDesc: resp.result.data.desc,
         tempDatas: resp.result.data.wares,
+        detail: resp.result.data
       })
     });
   },
@@ -265,27 +275,29 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    if (app.globalData.copyDiyId != null) {
-      console.log('修改配置')
-      this.retriveDiy(app.globalData.copyDiyId)
-      app.globalData.copyDiyId == null
-    } else {
-      this.clearContent(null)
-    }
+    this.clearContent(null)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    if (app.globalData.copyDiyId != null) {
+      console.log('修改配置')
+      this.retriveDiy(app.globalData.copyDiyId)
+      app.globalData.copyDiyId = null
+      if (app.globalData.diyType == 'edit') {
+        this.setData({
+          saveButtonText: '保存修改'
+        })
+      }
+    }
   },
 
   /**
