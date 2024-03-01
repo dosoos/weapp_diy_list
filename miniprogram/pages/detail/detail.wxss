@@ -20,7 +20,7 @@
 
 .content {
   width: 100%;
-  padding: 0 20px;
+  padding: 0 15px;
 }
 
 .config-list {
@@ -46,19 +46,16 @@
   font-weight: bold;
   font-size: 30rpx;
   display: inline-block;
-  max-width: 200rpx;
-  min-width: 150rpx;
-  word-wrap:normal;
+  width:110rpx;
 }
 
 .config-value {
   padding-left: 10rpx; /* Reset margin */
   font-weight: normal;
-  width: 90%;
+  width: 300rpx;
   color: #666;
   font-size: 22rpx;
   display: block;
-  max-width: 300rpx;
 }
 
 .config-count {
@@ -75,7 +72,7 @@
   font-size: 24rpx;
   min-width: 100rpx;
   font-weight: bold;
-  padding-left: 15rpx;
+  margin-left: 10rpx;
   text-align: left;
 }
 
