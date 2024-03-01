@@ -79,6 +79,7 @@
 .total-price {
   width: 100%;
   text-align: left;
+  font-size: 1.1rem;
   font-weight: bold;
   margin-top: 20rpx;
   margin-left: 80rpx;
