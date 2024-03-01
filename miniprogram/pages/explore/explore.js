@@ -99,6 +99,7 @@ Page({
         } else {
           x['nickname'] = '匿名用户'
         }
+        x['totalPriceText'] = x.totalPrice.toLocaleString()
         return x
       });
       this.setData({

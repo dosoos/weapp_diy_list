@@ -35,7 +35,7 @@
       inset 
       style="margin-top: 15rpx; display: block; width: 100%;">
       <!-- 资料行 -->
-      <van-cell center value="¥{{item.totalPrice}}" value-class="cell-value" link-type="navigateTo" url="../detail/detail?id={{item._id}}">
+      <van-cell center value="¥ {{item.totalPriceText}}" value-class="cell-value" link-type="navigateTo" url="../detail/detail?id={{item._id}}">
         <!-- 头像 -->
         <view slot="title" style="min-width: 300rpx">
           <van-row>
