@@ -6,10 +6,6 @@ Page({
    */
   data: {
     swippers: [
-      {
-        image: 'https://636c-cloud1-1gq9y7n198603bfa-1324314513.tcb.qcloud.la/swipper2.png?sign=2f0b9b42d24fe21655783fff5dea9a55&t=1707961337',
-        url: ''
-      },
     ],
     avatarUrl: '/images/logo-mini.png',
     indicatorDots: true,
@@ -53,20 +49,22 @@ Page({
 
   getBannerList() {
     console.log('获取轮播图')
-    wx.cloud.callFunction({
-      name: 'diyFunctions',
-      config: {
-        env: this.data.envId
-      },
-      data: {
-        type: 'banner'
+    const _this = this
+    wx.request({
+      url: getApp().globalData.baseUrl + '/api/info/banners',
+      success (res) {
+        console.log(res)
+        if (res.data.code != 0) {
+          wx.showToast({
+            title: res.data.message,
+          })
+          return
+        }
+        _this.setData({
+          swippers: res.data.data
+        })
       }
-    }).then((resp) => {
-      console.log(resp)
-      this.setData({
-        swippers: resp.result.data
-      })
-    });
+    })
   },
 
   getDiyList() {
