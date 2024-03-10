@@ -14,75 +14,22 @@ Page({
     like_count: 0,
     myself_count: 0,
   },
-  
-  // 修心获取用户头像方式
+
+  // 选择头像绑定事件
   onChooseAvatar(e) {
-    const { avatarUrl } = e.detail 
-    console.log('user avatar', avatarUrl)
+    const { avatarUrl } = e.detail
     const that = this
-    
-    wx.cloud.uploadFile({      
-      cloudPath: `avatar_${parseInt(Math.random() * 10**10)}.png`,
-      filePath: avatarUrl
-    }).then(res => {
-      console.log('上传文件返回', res)
-      //返回该图片文件路径fileID        
-      that.setData({             
-        avatarUrl: res.fileID
-        //文件 ID        
-      });
-      
-      // 将头像保存至数据库
-      wx.cloud.callFunction({
-        name: 'diyFunctions',
-        config: {
-          env: this.data.envId
-        },
-        data: {
-          type: 'profile',
-          avatar: res.fileID
-        }
-      }).then((resp) => {
-        console.log("将头像保存至数据库返回", resp)
-        that.setData({
-          avatarUrl: resp.result.data.avatar == '' ? this.data.avatarUrl : resp.result.data.avatar,
-          nickName: resp.result.data.nickname
-        })
-      });
-
-    }).catch(error => {      
-      console.log('将头像保存至数据库错误', error)    
-    });
-
-  },
-
-  getUserProfile(e) {
-    // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
-    wx.getUserProfile({
-      desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-      success: (res) => {
-        console.log(res)
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-        const that = this
-        console.log("获取微信头像昵称", that.data.userInfo)
-        wx.cloud.callFunction({
-          name: 'diyFunctions',
-          config: {
-            env: this.data.envId
-          },
-          data: {
-            type: 'profile'
-          }
-        }).then((resp) => {
-          console.log("获取资料返回", resp)
-          that.setData({
-            avatarUrl: resp.result.data.avatar == '' ? this.data.avatarUrl : resp.result.data.avatar,
-            nickName: resp.result.data.nickname == '' ? '微信用户' : resp.result.data.nickname,
-          })
-        });
+    wx.uploadFile({
+      url: getApp().globalData.baseUrl + '/api/account/profile', 
+      filePath: avatarUrl,
+      name:'avatar_file',
+      header: {
+        'content-type': 'multipart/form-data',
+        'Authorization': 'Token ' + getApp().globalData.userToken
+      },
+      success (res) {
+        console.log("设置资料返回", res)
+        that.getProfile()
       }
     })
   },
@@ -97,44 +44,37 @@ Page({
   onConfirmNickname(e) {
     console.log('确认昵称设置')
     const that = this
-    wx.cloud.callFunction({
-      name: 'diyFunctions',
-      config: {
-        env: this.data.envId
-      },
+    wx.request({
+      method: 'POST',
+      url: getApp().globalData.baseUrl + '/api/account/profile', 
       data: {
-        type: 'profile',
-        nickname: this.data.settingNickname
+        nickname: that.data.settingNickname
+      },
+      header: {
+        'Authorization': 'Token ' + getApp().globalData.userToken
+      },
+      success (res) {
+        console.log("设置资料返回", res)
+        that.getProfile()
       }
-    }).then((resp) => {
-      console.log("设置资料返回", resp)
-      that.setData({
-        avatarUrl: resp.result.data.avatar == '' ? this.data.avatarUrl : resp.result.data.avatar,
-        nickName: resp.result.data.nickname == '' ? '微信用户' : resp.result.data.nickname,
-      })
-    });
+    })
   },
 
-  getMySelfs() {
-    var _this = this
-    wx.cloud.callFunction({
-      name: 'diyFunctions',
-      config: {
-        env: this.data.envId
+  getProfile() {
+    const _this = this
+    wx.request({
+      url: getApp().globalData.baseUrl + '/api/account/profile',
+      header: {
+        'Authorization': 'Token ' + getApp().globalData.userToken
       },
-      data: {
-        type: 'diyBoard'
+      success (res) {
+        console.log("获取个人资料", res)
+        _this.setData({
+          avatarUrl: res.data.data.avatar == null ? this.data.avatarUrl : res.data.data.avatar,
+          nickName: res.data.data.nickname == null ? '微信用户' : res.data.data.nickname,
+        })
       }
-    }).then((resp) => {
-      console.log(resp)
-      _this.setData({
-        collect_count: resp.result.data.collect_count.total,
-        like_count: resp.result.data.like_count.total,
-        myself_count: resp.result.data.myself_count.total,
-        avatarUrl: resp.result.data.avatar == '' ? this.data.avatarUrl : resp.result.data.avatar,
-        nickName: resp.result.data.nickname == '' ? '微信用户' : resp.result.data.nickname,
-      })
-    });
+    })
   },
 
   copyWechat(e) {
@@ -170,7 +110,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.getMySelfs()
+    this.getProfile()
   },
 
   /**

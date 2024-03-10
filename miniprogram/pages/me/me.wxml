@@ -1,5 +1,6 @@
 <!--pages/me/me.wxml-->
 <view style="padding-top: 100rpx; padding-bottom: 100rpx; height: 100vh;">
+  
   <view class="userinfo">
     <block>
       <button style="border: none; background-color: #00000000;" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
