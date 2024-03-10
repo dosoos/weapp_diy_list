@@ -77,6 +77,33 @@ Page({
     })
   },
 
+  getBoard() {
+    const _this = this
+    wx.request({
+      url: getApp().globalData.baseUrl + '/api/diy/board',
+      header: {
+        'Authorization': 'Token ' + getApp().globalData.userToken
+      },
+      success (res) {
+        console.log("获取个人数据", res)
+        if (res.statusCode == 401) {
+          wx.removeStorageSync('token')
+          getApp().globalData.userToken = null
+          wx.hideLoading()
+          wx.navigateTo({
+            url: '../login/login',
+          })
+          return
+        }
+        _this.setData({
+          collect_count: res.data.data.collect,
+          like_count: res.data.data.like,
+          myself_count: res.data.data.diy
+        })
+      }
+    })
+  },
+
   copyWechat(e) {
     wx.setClipboardData({
       data: 'dosoos',
@@ -110,7 +137,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.getProfile()
   },
 
   /**
@@ -124,7 +150,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    this.getProfile()
+    this.getBoard()
   },
 
   /**
