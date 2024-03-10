@@ -1,0 +1,14 @@
+/**index.wxss**/
+.container {
+  width: 100%;
+  height: 100vh;
+}
+
+.login-area {
+  width: 100%;
+  height: 100vh;
+  display:flex;
+  align-items:center;
+  /* 水平居中把这个打开 */
+  /* justify-content:center; */
+}

@@ -8,6 +8,7 @@
     "pages/likes/likes",
     "pages/myself/myself",
     "pages/collects/collects",
+    "pages/login/login",
     "pages/detail/detail"
   ],
   "tabBar": {

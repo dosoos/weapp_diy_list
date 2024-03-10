@@ -1,0 +1,8 @@
+<!--index.wxml-->
+<view class="container">
+  
+  <view class="login-area">
+    <button class="login-button" style="width: 90%;" type="primary" block round bindtap="loginAction" >登录</button>
+  </view>
+
+</view>
