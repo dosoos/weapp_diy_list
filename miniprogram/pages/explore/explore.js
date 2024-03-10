@@ -68,12 +68,37 @@ Page({
   },
 
   getDiyList() {
-    const filterData = {}
-    if (this.data.searchKeywords.length > 0) {
-      // 添加搜索内容
-      console.log('搜索关键字', this.data.searchKeywords)
-      filterData['search'] = this.data.searchKeywords
-    }
+    const _this = this
+    wx.request({
+      url: getApp().globalData.baseUrl + '/api/diy/search?search=' + this.data.searchKeywords,
+      success (res) {
+        console.log(res)
+        if (res.data.code != 0) {
+          wx.showToast({
+            title: res.data.message,
+          })
+          return
+        }
+        const handleDatas = res.data.data.map(function(x) {
+          x['fiendlyTime'] = x.update_time.split('.')[0].replace('T', ' ')
+          if (x.profiles.length > 0) {
+            x['avatar'] = x.account.avatar == null ? this.data.avatarUrl : x.account.avatar
+          } else {
+            x['avatar'] = '/images/logo-mini.png'
+          }
+          if (x.profiles.length > 0) {
+            x['nickname'] = x.nickname == '' || x.nickname == null ? '匿名用户' : x.nickname
+          } else {
+            x['nickname'] = '匿名用户'
+          }
+          x['totalPriceText'] = x.price.toLocaleString()
+          return x
+        });
+        _this.setData({
+          diys: handleDatas
+        })
+      }
+    })
     wx.cloud.callFunction({
       name: 'diyFunctions',
       config: {
