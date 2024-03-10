@@ -55,9 +55,6 @@ Page({
       success (res) {
         console.log(res)
         if (res.data.code != 0) {
-          wx.showToast({
-            title: res.data.message,
-          })
           return
         }
         _this.setData({
@@ -81,16 +78,8 @@ Page({
         }
         const handleDatas = res.data.data.map(function(x) {
           x['fiendlyTime'] = x.update_time.split('.')[0].replace('T', ' ')
-          if (x.profiles.length > 0) {
-            x['avatar'] = x.account.avatar == null ? this.data.avatarUrl : x.account.avatar
-          } else {
-            x['avatar'] = '/images/logo-mini.png'
-          }
-          if (x.profiles.length > 0) {
-            x['nickname'] = x.nickname == '' || x.nickname == null ? '匿名用户' : x.nickname
-          } else {
-            x['nickname'] = '匿名用户'
-          }
+          x['avatar'] = x.account.avatar == null ? _this.data.avatarUrl : x.account.avatar
+          x['nickname'] = x.nickname == '' || x.nickname == null ? '匿名用户' : x.nickname
           x['totalPriceText'] = x.price.toLocaleString()
           return x
         });

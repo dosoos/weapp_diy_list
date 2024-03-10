@@ -75,9 +75,9 @@ Page({
     // 向新的数组填充元素
     array0.push({
       // 类型
-      category: category,
+      title: category,
       // 型号
-      special: special,
+      desc: special,
       // 价格
       price: 0,
       // 数量
@@ -106,44 +106,101 @@ Page({
     wx.showLoading({
       title: '保存中...',
     })
+    const _this = this
     var totalPrice = 0
     if (this.data.tempDatas.length > 0) {
       totalPrice = this.data.tempDatas.reduce((sum, { price, count }) => sum + price * count, 0)
     }
-    var copyOrEdit = {}
     if (app.globalData.diyType == 'edit') {
-      copyOrEdit['_id'] = this.data.detail._id
-    }
-    wx.cloud.callFunction({
-      name: 'diyFunctions',
-      config: {
-        env: this.data.envId
-      },
-      data: {
-        type: 'diyCreate',
+      // 编辑配置单
+      wx.request({
+        method: "PUT",
+        url: getApp().globalData.baseUrl + '/api/diy/diys/',
+        header: {
+          'Authorization': 'Token ' + getApp().globalData.userToken
+        },
         data: {
+          uuid: this.data.detail.uuid,
           title: this.data.diyTitle,
           desc: this.data.diyDesc,
-          totalPrice: totalPrice,
+          price: totalPrice,
           wares: [
             ...this.data.tempDatas
           ],
-          ...copyOrEdit
+        },
+        success (res) {
+          console.log("编辑配置单", res)
+          if (res.data.code != 0) {
+            wx.showToast({
+              title: res.data.message,
+            })
+            return
+          }
+          wx.showToast({
+            title: '保存成功',
+          })
+          wx.hideLoading()
+          getApp().globalData.copyDiyId = null
+          getApp().globalData.diyType == 'edit'
+          _this.setData({
+            saveButtonText: '保存修改',
+            diyTitle: res.data.data.title,
+            diyDesc: res.data.data.desc,
+            tempDatas: res.data.data.wares,
+            detail: res.data.data
+          })
         }
-      }
-    }).then((resp) => {
-      console.log(resp);
-      wx.hideLoading();
-      wx.navigateTo({
-        url: '../detail/detail?id=' + resp.result._id,
-      });
-      wx.showToast({
-        title: '保存成功',
       })
-    }).catch((e) => {
-      console.log(e);
-      wx.hideLoading();
-    });
+    } else {
+      // 创建配置单
+      wx.request({
+        method: "POST",
+        url: getApp().globalData.baseUrl + '/api/diy/diys/',
+        header: {
+          'Authorization': 'Token ' + getApp().globalData.userToken
+        },
+        data: {
+          title: this.data.diyTitle,
+          desc: this.data.diyDesc,
+          price: totalPrice,
+          wares: [
+            ...this.data.tempDatas
+          ],
+        },
+        success (res) {
+          console.log("创建配置单", res)
+          if (res.statusCode == 401) {
+            wx.removeStorageSync('token')
+            getApp().globalData.userToken = null
+            wx.hideLoading()
+            wx.navigateTo({
+              url: '../login/login',
+            })
+            return
+          }
+          if (res.data.code != 0) {
+            wx.showToast({
+              title: res.data.message,
+            })
+            return
+          }
+          wx.showToast({
+            title: '保存成功',
+          })
+          wx.hideLoading()
+          getApp().globalData.copyDiyId = null
+          getApp().globalData.diyType == 'edit'
+          _this.setData({
+            saveButtonText: '保存修改',
+            diyTitle: res.data.data.title,
+            diyDesc: res.data.data.desc,
+            tempDatas: res.data.data.wares,
+            detail: res.data.data
+          })
+        }
+      })
+    }
+    
   },
 
   // 数据元素被修改时修改列表元素
@@ -151,7 +208,7 @@ Page({
     console.log(e)
     var index = e.currentTarget.dataset.index
     this.setData({
-      ['tempDatas[' + index + '].category']: e.detail
+      ['tempDatas[' + index + '].title']: e.detail
     })
   },
 
@@ -159,7 +216,7 @@ Page({
     console.log(e)
     var index = e.currentTarget.dataset.index
     this.setData({
-      ['tempDatas[' + index + '].special']: e.detail
+      ['tempDatas[' + index + '].desc']: e.detail
     })
     
   },

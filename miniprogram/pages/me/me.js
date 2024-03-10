@@ -70,7 +70,7 @@ Page({
       success (res) {
         console.log("获取个人资料", res)
         _this.setData({
-          avatarUrl: res.data.data.avatar == null ? this.data.avatarUrl : res.data.data.avatar,
+          avatarUrl: res.data.data.avatar == null ? _this.data.avatarUrl : res.data.data.avatar,
           nickName: res.data.data.nickname == null ? '微信用户' : res.data.data.nickname,
         })
       }
