@@ -52,6 +52,13 @@ Page({
       },
       success (res) {
         console.log('DIY详情', res)
+        if (res.data.code == 2) {
+          _this.onBack(null)
+          wx.showToast({
+            title: res.data.message,
+          })
+          return
+        }
         if (res.data.code != 0) {
           wx.showToast({
             title: res.data.message,
