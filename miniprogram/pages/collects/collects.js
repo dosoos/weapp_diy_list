@@ -34,8 +34,8 @@ Page({
         }
         _this.setData({
           diys: res.data.data.map(function(x) {
-            x['fiendlyTime'] = x.update_time.split('.')[0].replace('T', ' ')
-            x['avatar'] = '../../images/logo-mini.png'
+            x['fiendlyTime'] = x.create_time.split('.')[0].replace('T', ' ')
+            x['avatar'] = x.account.avatar || '../../images/logo-mini.png'
             return x
           })
         })
