@@ -7,7 +7,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    logoImage: 'https://636c-cloud1-1gq9y7n198603bfa-1324314513.tcb.qcloud.la/logo-text-mini.png?sign=376f8ae8b98683621c890b502b3e1c90&t=1707836091',
     shareImage: '',
     qrcodeImage: '',
     detail: null,
@@ -18,7 +17,7 @@ Page({
     totalPrice: 0,
     totalPriceText: '0',
     showQrcode: true,
-    paddingTopNum: wx.getSystemInfoSync().statusBarHeight+7
+    paddingTopNum: wx.getSystemInfoSync().statusBarHeight + 7
   },
 
   switchShowQrcode(e) {
@@ -51,27 +50,31 @@ Page({
   },
 
   retriveDiy(id) {
-    wx.cloud.callFunction({
-      name: 'diyFunctions',
-      config: {
-        env: this.data.envId
+    const _this = this
+    wx.request({
+      url: getApp().globalData.baseUrl + '/api/diy/detail/' + id,
+      header: {
+        'Authorization': 'Token ' + getApp().globalData.userToken
       },
-      data: {
-        type: 'diyDetailMe',
-        id: id
+      success (res) {
+        console.log('DIY详情', res)
+        if (res.data.code != 0) {
+          wx.showToast({
+            title: res.data.message,
+          })
+          return
+        }
+        _this.setData({
+          title: res.data.data.title,
+          desc: res.data.data.desc,
+          wares: res.data.data.wares,
+          totalPrice: res.data.data.price,
+          totalPriceText: res.data.data.price.toLocaleString(),
+          qrcodeImage: '',
+          detail: res.data.data
+        })
       }
-    }).then((resp) => {
-      console.log(resp)
-      this.setData({
-        title: resp.result.data.title,
-        desc: resp.result.data.desc,
-        wares: resp.result.data.wares,
-        totalPrice: resp.result.data.totalPrice,
-        totalPriceText: resp.result.data.totalPrice.toLocaleString(),
-        qrcodeImage: resp.result.data.qrImage,
-        detail: resp.result.data
-      })
-    });
+    })
   },
 
   async onShare(e) {
