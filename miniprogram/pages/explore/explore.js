@@ -92,9 +92,9 @@ Page({
 
   goDiyDetail(e) {
     console.log(e)
-    var diyid = e.currentTarget.dataset.id
+    var uuid = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: '../detail/detail?id=' + diyid,
+      url: '../detail/detail?id=' + uuid,
     });
   },
 
@@ -116,44 +116,76 @@ Page({
 
   diyLike(e) {
     console.log(e)
-    var diyid = e.currentTarget.dataset.id
-    wx.cloud.callFunction({
-      name: 'diyFunctions',
-      config: {
-        env: this.data.envId
+    const diyid = e.currentTarget.dataset.id
+    wx.request({
+      method: "POST",
+      url: getApp().globalData.baseUrl + '/api/diy/likes/',
+      header: {
+        'Authorization': 'Token ' + getApp().globalData.userToken
       },
       data: {
-        type: 'diyLike',
-        diyid: diyid
+        diy: diyid
+      },
+      success (res) {
+        console.log("点赞", res)
+        if (res.statusCode == 401) {
+          wx.removeStorageSync('token')
+          getApp().globalData.userToken = null
+          wx.hideLoading()
+          wx.navigateTo({
+            url: '../login/login',
+          })
+          return
+        }
+        if (res.data.code != 0) {
+          wx.showToast({
+            title: res.data.message,
+          })
+          return
+        }
+        wx.showToast({
+          duration: 500,
+          title: '成功',
+        })
       }
-    }).then((resp) => {
-      console.log(resp)
-      wx.showToast({
-        duration: 1000,
-        title: '成功',
-      })
-    });
+    })
   },
 
   diyCollect(e) {
     console.log(e)
-    var diyid = e.currentTarget.dataset.id
-    wx.cloud.callFunction({
-      name: 'diyFunctions',
-      config: {
-        env: this.data.envId
+    const diyid = e.currentTarget.dataset.id
+    wx.request({
+      method: "POST",
+      url: getApp().globalData.baseUrl + '/api/diy/collects/',
+      header: {
+        'Authorization': 'Token ' + getApp().globalData.userToken
       },
       data: {
-        type: 'diyCollect',
-        diyid: diyid
+        diy: diyid
+      },
+      success (res) {
+        console.log("收藏", res)
+        if (res.statusCode == 401) {
+          wx.removeStorageSync('token')
+          getApp().globalData.userToken = null
+          wx.hideLoading()
+          wx.navigateTo({
+            url: '../login/login',
+          })
+          return
+        }
+        if (res.data.code != 0) {
+          wx.showToast({
+            title: res.data.message,
+          })
+          return
+        }
+        wx.showToast({
+          duration: 500,
+          title: '成功',
+        })
       }
-    }).then((resp) => {
-      console.log(resp)
-      wx.showToast({
-        duration: 1000,
-        title: '成功',
-      })
-    });
+    })
   },
 
   /**
