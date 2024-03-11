@@ -18,24 +18,29 @@ Page({
   },
 
   getMyCollects() {
-    wx.cloud.callFunction({
-      name: 'diyFunctions',
-      config: {
-        env: this.data.envId
+    const _this = this
+    wx.request({
+      url: getApp().globalData.baseUrl + '/api/diy/collects',
+      header: {
+        'Authorization': 'Token ' + getApp().globalData.userToken
       },
-      data: {
-        type: 'diyCollectList',
-      }
-    }).then((resp) => {
-      console.log(resp)
-      this.setData({
-        diys: resp.result.data.map(function(x) {
-          x['fiendlyTime'] = x.updateTime.split('.')[0].replace('T', ' ')
-          x['avatar'] = '../../images/logo-mini.png'
-          return x
+      success (res) {
+        console.log("获取我的收藏", res)
+        if (res.data.code != 0) {
+          wx.showToast({
+            title: res.data.message,
+          })
+          return
+        }
+        _this.setData({
+          diys: res.data.data.map(function(x) {
+            x['fiendlyTime'] = x.update_time.split('.')[0].replace('T', ' ')
+            x['avatar'] = '../../images/logo-mini.png'
+            return x
+          })
         })
-      })
-    });
+      }
+    })
   },
 
   handleDelete(e) {
@@ -56,19 +61,25 @@ Page({
 
   deleteCollect(e) {
     console.log(e)
-    var diyid = e.currentTarget.dataset.id
-    wx.cloud.callFunction({
-      name: 'diyFunctions',
-      config: {
-        env: this.data.envId
+    const diyid = e.currentTarget.dataset.id
+    const _this = this
+    wx.request({
+      method: "DELETE",
+      url: getApp().globalData.baseUrl + '/api/diy/collects/' + diyid + '/',
+      header: {
+        'Authorization': 'Token ' + getApp().globalData.userToken
       },
-      data: {
-        type: 'diyCollectDelete',
-        diyid: diyid
+      success (res) {
+        console.log("删除收藏", res)
+        if (res.data.code != 0) {
+          wx.showToast({
+            title: res.data.message,
+          })
+          return
+        }
+        _this.getMyCollects()
       }
-    }).then((resp) => {
-      this.getMyCollects()
-    });
+    })
   },
 
   handleRefresh(e) {
