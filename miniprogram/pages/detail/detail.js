@@ -36,7 +36,7 @@ Page({
 
   onReEdit(e) {
     console.log(e)
-    app.globalData.copyDiyId = this.data.diyid
+    app.globalData.copyDiyId = this.data.detail.uuid
     app.globalData.diyType = 'edit'
     wx.switchTab({
       url: '../diy/diy',
