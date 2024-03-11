@@ -14,9 +14,9 @@ Page({
     tempDatas: [
       {
         // 类型
-        category: '',
+        title: '',
         // 型号
-        special: '',
+        desc: '',
         // 价格
         price: 0,
         // 数量
@@ -115,7 +115,7 @@ Page({
       // 编辑配置单
       wx.request({
         method: "PUT",
-        url: getApp().globalData.baseUrl + '/api/diy/diys/',
+        url: getApp().globalData.baseUrl + `/api/diy/diys/${this.data.detail.id}/`,
         header: {
           'Authorization': 'Token ' + getApp().globalData.userToken
         },
@@ -308,24 +308,25 @@ Page({
   },
 
   retriveDiy(id) {
-    wx.cloud.callFunction({
-      name: 'diyFunctions',
-      config: {
-        env: this.data.envId
-      },
-      data: {
-        type: 'diyDetail',
-        id: id
+    const _this = this
+    wx.request({
+      url: getApp().globalData.baseUrl + '/api/diy/detail/' + id,
+      success (res) {
+        console.log('DIY详情', res)
+        if (res.data.code != 0) {
+          wx.showToast({
+            title: res.data.message,
+          })
+          return
+        }
+        _this.setData({
+          diyTitle: res.data.data.title,
+          diyDesc: res.data.data.desc,
+          tempDatas: res.data.data.wares,
+          detail: res.data.data
+        })
       }
-    }).then((resp) => {
-      console.log(resp)
-      this.setData({
-        diyTitle: resp.result.data.title,
-        diyDesc: resp.result.data.desc,
-        tempDatas: resp.result.data.wares,
-        detail: resp.result.data
-      })
-    });
+    })
   },
 
   /**

@@ -31,7 +31,7 @@
     <image data-index="{{index}}" capture-bind:tap="handleDelete" class="delete-item" src="../../images/icons/delete.png" style="background-color: #F36259; border-bottom-left-radius: 10rpx;"></image>
 
     <van-field
-      value="{{ item.category }}"
+      value="{{ item.title }}"
       required
       clearable
       autosize
@@ -43,7 +43,7 @@
     />
 
     <van-field
-      value="{{ item.special }}"
+      value="{{ item.desc }}"
       required
       clearable
       autosize
