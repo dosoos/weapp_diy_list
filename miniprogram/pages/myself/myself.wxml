@@ -11,7 +11,7 @@
 
     <van-cell-group inset style="margin-top: 10rpx; display: block;">
       <!-- 资料行 -->
-      <van-cell center value="¥{{item.totalPrice}}" value-class="cell-value" link-type="navigateTo" url="../detail/detail?id={{item._id}}">
+      <van-cell center value="¥{{item.price}}" value-class="cell-value" link-type="navigateTo" url="../detail/detail?id={{item._id}}">
         <!-- 头像 -->
         <view slot="title" style="min-width: 300rpx">
           <van-row>
@@ -40,13 +40,13 @@
       </van-cell>
 
       <!-- 内容行 -->
-      <van-cell title="{{item.title}}" label="{{item.desc}}" link-type="navigateTo" url="../detail/detail?id={{item._id}}" />
+      <van-cell title="{{item.title}}" label="{{item.desc}}" link-type="navigateTo" url="../detail/detail?id={{item.uuid}}" />
 
       <!-- 点赞区域 -->
       <van-cell use-label-slot="true">
         <view slot="label">
           <view class="avter-share-container">
-            <view class="like-container" data-id="{{item._id}}" catchtap="diyLike">
+            <view class="like-container" data-id="{{item.id}}" catchtap="diyLike">
               <text class="switch-group-item" style="margin-right: 20rpx;">分享至首页</text>
               <switch class="switch-group-item" data-index="{{index}}" type="switch" checked="{{item.share}}" bindchange="switchShare"/>
             </view>
@@ -56,7 +56,7 @@
 
     </van-cell-group>
 
-    <view slot="right" data-id="{{item._id}}" catchtap="handleDelete" style="background-color: red; width: 128rpx; height: 250rpx;">
+    <view slot="right" data-id="{{item.id}}" catchtap="handleDelete" style="background-color: red; width: 128rpx; height: 250rpx;">
       <van-icon name="delete" color="white" size="60rpx" style="margin-top: 80rpx; margin-left: 30rpx;" />
     </view>
 

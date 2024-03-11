@@ -22,47 +22,60 @@ Page({
     this.setData({
       ['diys[' + index + '].share']: e.detail.value
     })
-    wx.cloud.callFunction({
-      name: 'diyFunctions',
-      config: {
-        env: this.data.envId
+    wx.request({
+      method: "PUT",
+      url: getApp().globalData.baseUrl + '/api/diy/diys/' + diy.id + '/',
+      header: {
+        'Authorization': 'Token ' + getApp().globalData.userToken
       },
       data: {
-        type: 'diyCreate',
-        data: {
-          _id: diy._id,
-          share: e.detail.value
-        }
+        share: e.detail.value
+      },
+      success (res) {
+        console.log("切换分享", res)
       }
-    }).then((resp) => {
-      console.log('分享返回', resp)
-    });
+    })
+    // wx.cloud.callFunction({
+    //   name: 'diyFunctions',
+    //   config: {
+    //     env: this.data.envId
+    //   },
+    //   data: {
+    //     type: 'diyCreate',
+    //     data: {
+    //       _id: diy._id,
+    //       share: e.detail.value
+    //     }
+    //   }
+    // }).then((resp) => {
+    //   console.log('分享返回', resp)
+    // });
   },
 
   getMySelf() {
-    wx.cloud.callFunction({
-      name: 'diyFunctions',
-      config: {
-        env: this.data.envId
+    const _this = this
+    wx.request({
+      url: getApp().globalData.baseUrl + '/api/diy/diys',
+      header: {
+        'Authorization': 'Token ' + getApp().globalData.userToken
       },
-      data: {
-        type: 'diyList',
-        category: 'mydiys'
-      }
-    }).then((resp) => {
-      console.log(resp)
-      this.setData({
-        diys: resp.result.list.map(function(x) {
-          x['fiendlyTime'] = x.updateTime.split('.')[0].replace('T', ' ')
-          if (x.profiles.length > 0) {
-            x['avatar'] = x.profiles[0].avatar == '' ? this.data.avatarUrl : x.profiles[0].avatar
-          } else {
-            x['avatar'] = '../../images/logo-mini.png'
-          }
-          return x
+      success (res) {
+        console.log("获取我的DIY", res)
+        if (res.data.code != 0) {
+          wx.showToast({
+            title: res.data.message,
+          })
+          return
+        }
+        _this.setData({
+          diys: res.data.data.map(function(x) {
+            x['fiendlyTime'] = x.update_time.split('.')[0].replace('T', ' ')
+            x['avatar'] = x.account.avatar == '' ? _this.data.avatarUrl : x.account.avatar
+            return x
+          })
         })
-      })
-    });
+      }
+    })
   },
 
   handleDelete(e) {
@@ -85,21 +98,25 @@ Page({
 
   deleteDiy(e) {
     console.log(e)
-    var diyid = e.currentTarget.dataset.id
-    wx.cloud.callFunction({
-      name: 'diyFunctions',
-      config: {
-        env: this.data.envId
+    const diyid = e.currentTarget.dataset.id
+    const _this = this
+    wx.request({
+      method: "DELETE",
+      url: getApp().globalData.baseUrl + '/api/diy/diys/' + diyid + '/',
+      header: {
+        'Authorization': 'Token ' + getApp().globalData.userToken
       },
-      data: {
-        type: 'diyDelete',
-        data: {
-          id: diyid
+      success (res) {
+        console.log("获取我的DIY", res)
+        if (res.data.code != 0) {
+          wx.showToast({
+            title: res.data.message,
+          })
+          return
         }
+        _this.getMySelf()
       }
-    }).then((resp) => {
-      this.getMySelf()
-    });
+    })
   },
 
   handleRefresh(e) {
