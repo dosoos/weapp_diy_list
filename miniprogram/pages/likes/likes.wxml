@@ -11,7 +11,7 @@
 
     <van-cell-group inset style="margin-top: 10rpx; display: block;">
       <!-- 资料行 -->
-      <van-cell center value="¥{{item.totalPrice}}" value-class="cell-value" link-type="navigateTo" url="../detail/detail?id={{item.uuid}}">
+      <van-cell center value="¥{{item.diy.price}}" value-class="cell-value" link-type="navigateTo" url="../detail/detail?id={{item.diy.uuid}}">
         <!-- 头像 -->
         <view slot="title" style="min-width: 300rpx">
           <van-row>
@@ -27,7 +27,7 @@
             </van-col>
             <van-col span="16">
               <van-row style="height: 32rpx; display: block;">
-                <text style="font-weight: bold; font-size: 28rpx;">微信用户</text>
+                <text style="font-weight: bold; font-size: 28rpx;">{{item.diy.account.nickname || '匿名用户'}}</text>
               </van-row>
               <van-row style="height: 20rpx; display: block;">
                 <text style="font-size: 20rpx;">{{item.fiendlyTime}}</text>
@@ -40,7 +40,7 @@
       </van-cell>
 
       <!-- 内容行 -->
-      <van-cell title="{{item.title}}" label="{{item.desc}}" link-type="navigateTo" url="../detail/detail?id={{item.uuid}}" />
+      <van-cell title="{{item.diy.title}}" label="{{item.diy.desc}}" link-type="navigateTo" url="../detail/detail?id={{item.diy.uuid}}" />
 
     </van-cell-group>
 

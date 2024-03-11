@@ -40,7 +40,7 @@
       </van-cell>
 
       <!-- 内容行 -->
-      <van-cell title="{{item.diy.title}}" label="{{item.diy.desc}}" link-type="navigateTo" url="../detail/detail?id={{item.uuid}}" />
+      <van-cell title="{{item.diy.title}}" label="{{item.diy.desc}}" link-type="navigateTo" url="../detail/detail?id={{item.diy.uuid}}" />
 
     </van-cell-group>
 
