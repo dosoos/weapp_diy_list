@@ -23,7 +23,7 @@
                 width="65rpx"
                 height="65rpx"
                 style="margin-top: 3px; display: block;"
-                src="https://img.yzcdn.cn/vant/cat.jpeg" />
+                src="{{item.diy.account.avatar || '/images/logo-mini.png'}}" />
             </van-col>
             <van-col span="16">
               <van-row style="height: 32rpx; display: block;">

@@ -47,7 +47,7 @@
                 width="65rpx"
                 height="65rpx"
                 style="margin-top: 3px; display: block;"
-                src="{{item.avatar}}" />
+                src="{{item.account.avatar || '/images/logo-mini.png'}}" />
             </van-col>
             <van-col span="16">
               <van-row style="height: 32rpx; display: block;">
