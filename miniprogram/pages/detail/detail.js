@@ -7,15 +7,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    shareImage: '',
-    qrcodeImage: '',
-    detail: null,
-    diyid: 0,
-    title: '',
-    desc: '',
-    wares: [],
-    totalPrice: 0,
-    totalPriceText: '0',
+    detail: {
+      wares: []
+    },
     showQrcode: true,
     paddingTopNum: wx.getSystemInfoSync().statusBarHeight + 7
   },
@@ -116,26 +110,6 @@ Page({
     wx.showLoading({
       title: '生成中...',
     })
-    // 检测分享二维码
-    if (this.data.qrcodeImage == undefined || this.data.qrcodeImage.length <= 0) {
-      // 没有二维码, 生成配置二维码
-      console.log('分享二维码为空, 重新生成')
-      const resp = await wx.cloud.callFunction({
-        name: 'diyFunctions',
-        config: {
-          env: this.data.envId
-        },
-        data: {
-          type: 'genImage',
-          diyid: this.data.diyid
-        }
-      })
-      this.setData({
-        qrcodeImage: resp.result.imageUrl
-      })
-      // 等待两秒图片加载完成
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-    }
 
     console.log('开始生成图片')
     // 小程序 二维码
@@ -152,7 +126,7 @@ Page({
             console.log('截屏成功', res)
             wx.hideLoading()
 
-            const f = `${wx.env.USER_DATA_PATH}/${_this.data.title}_${_this.data.diyid}_${parseInt(Math.random()*1000000)}.png`
+            const f = `${wx.env.USER_DATA_PATH}/${_this.data.detail.title}_${_this.data.detail.uuid}_${parseInt(Math.random()*1000000)}.png`
 
             const fs = wx.getFileSystemManager();
             fs.writeFileSync(f, res.data, 'binary')
@@ -188,7 +162,7 @@ Page({
 
   onCopy(e) {
     console.log(e)
-    app.globalData.copyDiyId = this.data.diyid
+    app.globalData.copyDiyId = this.data.detail.uuid
     app.globalData.diyType = 'copy'
     wx.switchTab({
       url: '../diy/diy',
@@ -197,10 +171,10 @@ Page({
 
   onCopyItem(e) {
     const index = e.currentTarget.dataset.index
-    const ware = this.data.wares[index]
+    const ware = this.data.detail.wares[index]
     console.log(ware)
     wx.setClipboardData({
-      data: ware.special,
+      data: ware.desc,
       success (res) {
         wx.showToast({
           title: '复制成功!',

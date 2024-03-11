@@ -13,13 +13,13 @@
       
       <!-- description -->
       <view class="description">
-        <view class="desc-title">{{title}}</view>
-        <view class="desc-subtitle">{{desc}}</view>
+        <view class="desc-title">{{detail.title}}</view>
+        <view class="desc-subtitle">{{detail.desc}}</view>
       </view>
       
       <!-- wares -->
       <view class="config-list">
-        <block wx:for="{{wares}}" wx:key="index">
+        <block wx:for="{{detail.wares}}" wx:key="index">
           <view class="config-item" data-index="{{index}}" bind:tap="onCopyItem">
             <text class="config-label">{{item.title}}</text>
             <text class="config-value">{{item.desc}}</text>
@@ -42,7 +42,7 @@
         <image class="logo" src="../../images/logo-mini.png" alt="Logo" />
         <text class="logo-text">小狗diy小程序</text>
       </view>
-      <image class="qr-code" wx:if="{{showQrcode}}" src="{{qrcodeImage}}" alt="QR Code" />
+      <image class="qr-code" wx:if="{{showQrcode}}" src="{{detail.weapp_qrcode}}" alt="QR Code" />
     </view>
 
   </view>
